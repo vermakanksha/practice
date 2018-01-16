@@ -58,3 +58,8 @@ tr2
 
 #MASS mein cars/car mein tree, C5.0 & train code run n make confusion matrix
 
+library(MASS)
+head(cars)
+
+
+

@@ -6,10 +6,9 @@ nrow(mushroom)
 head(mushroom$type)
 str(mushroom$type)
 class(mushroom$type)
-8124*0.80
 #train test split
 set.seed(101)
-sample<-sample(8124,6499)
+sample<-sample(8124,8124*0.80)
 head(sample)
 train_m <- mushroom[sample,]
 test_m <- mushroom[-sample,]
@@ -38,9 +37,6 @@ plot(tree_m); text(tree_m)
 pred_m <- predict(tree_m,test_m)
 pred_m
 
-#confusion matrix
-#table(pred_m,test_m)
-
 # creating C5.0 model
 C50_m <- C5.0(type~habitat+population+odor,data = train_m)
 C50_m
@@ -48,7 +44,7 @@ summary(C50_m)
 plot(C50_m); text(C50_m)
 
 # installing e1071
-install.packages("e1071")
+#install.packages("e1071")
 library(e1071)
 
 # creating train model

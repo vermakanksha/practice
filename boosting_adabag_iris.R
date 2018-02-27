@@ -88,3 +88,32 @@ pred_iris$confusion
 pred_iris_20$confusion
 pred_iris_50$confusion
 pred_iris_1$confusion
+
+#applying adaptive boosting on train (5 models)
+model_fit <- boosting(Species~.,data = train_iris,
+                      v=5,mfinal = 5,
+                      control = rpart.control(maxdepth = 4))
+class(iris$Species)
+summary(model_fit)
+
+model_fit
+model_fit$importance
+
+#pridicting test on model created
+pred_iris <- predict(model_fit,test_iris)
+pred_iris
+
+model_fit$prob
+model_fit$votes
+
+#Decision tree model C5.0
+library(C50)
+dt_fit<-C5.0(Species~.,data = train_iris)
+dt_fit
+
+#Predicting decision tree model on test
+pred_dt <- predict(dt_fit,test_iris)
+pred_dt
+
+#confusion matrix
+table(pred_dt,test_iris$Species)

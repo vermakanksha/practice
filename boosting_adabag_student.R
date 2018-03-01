@@ -27,8 +27,8 @@ head(test_stu)
 
 #applying adaptive boosting on train (5 models)
 model_fit <- boosting(Grade~.,data = train_stu,
-                      v=10,mfinal = 5,
-                      control = rpart.control(maxdepth = 4))
+                      v=10,mfinal = 10,
+                      control = rpart.control(maxdepth = 20))
 class(student$Grade)
 summary(model_fit)
 

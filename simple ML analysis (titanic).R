@@ -192,3 +192,12 @@ predict(forest, rowRandom)
 
 prediction = predict(forest, dtDummy)
 sample(prediction, 6)
+
+#Calculating the performance of our model (it is not correct to use the same data for
+#model building as well as testing accuracy)
+dtDummy[, SurvivalRatePred := predict(forest, dtDummy)]
+dtDummy[, SurvivedPred := ifelse(SurvivalRatePred > 0.5, 1, 0)]
+dtDummy[, error := SurvivedPred != Survived]
+percError <- dtDummy[, sum(error) / .N] 
+percError
+dtTitanic[Survived == 'No', sum(Freq)] / dtTitanic[, sum(Freq)]

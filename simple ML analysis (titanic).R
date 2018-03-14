@@ -157,3 +157,30 @@ treeClass = rpart(
   method='class'
 )
 prp(treeClass)
+
+#Building a ML model
+library('randomForest')
+dtDummy <- copy(dtLong)
+dtDummy[, Male := Sex == 'Male']
+dtDummy[, Sex := NULL]
+dtDummy[, Child := Age == 'Child']
+dtDummy[, Age := NULL]
+dtDummy[, Class1 := Class == '1st']
+dtDummy[, Class2 := Class == '2nd']
+dtDummy[, Class3 := Class == '3rd']
+dtDummy[, Class := NULL]
+formulaRf <- formula('Survived ~ Male + Child + Class1 + Class2 +
+                     Class3')
+forest <- randomForest(
+  formula=formulaRf,
+  data=dtDummy
+)
+forest$ntree
+forest$mtry
+forest$type
+forest1 <- randomForest(formula=formulaRf,
+                        data=dtDummy,
+                        ntree=1000,
+                        mtry=3,
+                        sampsize=1500
+)

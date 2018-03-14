@@ -184,3 +184,11 @@ forest1 <- randomForest(formula=formulaRf,
                         mtry=3,
                         sampsize=1500
 )
+
+#Using the model to predict new outcomes
+rowRandom <- dtDummy[100]
+rowRandom
+predict(forest, rowRandom)
+
+prediction = predict(forest, dtDummy)
+sample(prediction, 6)

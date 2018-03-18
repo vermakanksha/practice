@@ -206,7 +206,7 @@ dtTitanic[Survived == 'No', sum(Freq)] / dtTitanic[, sum(Freq)]
 indexTrain <- sample(
   x=c(TRUE, FALSE),
   size=nrow(dtDummy),
-  replace=TRUE,
+  replace=FALSE,
   prob=c(0.8, 0.2)
 )
 dtTrain <- dtDummy[indexTrain]

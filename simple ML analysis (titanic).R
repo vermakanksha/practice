@@ -201,3 +201,25 @@ dtDummy[, error := SurvivedPred != Survived]
 percError <- dtDummy[, sum(error) / .N] 
 percError
 dtTitanic[Survived == 'No', sum(Freq)] / dtTitanic[, sum(Freq)]
+
+#Validating a model
+indexTrain <- sample(
+  x=c(TRUE, FALSE),
+  size=nrow(dtDummy),
+  replace=TRUE,
+  prob=c(0.8, 0.2)
+)
+dtTrain <- dtDummy[indexTrain]
+dtTest <- dtDummy[!indexTrain]
+forest <- randomForest(
+  formula=formulaRf,
+  data=dtTrain,
+  ntree=1000,
+  mtry=3,
+  sampsize=1200
+)
+dtTest[, SurvivalRatePred := predict(forest, dtTest)]
+dtTest[, SurvivedPred := ifelse(SurvivalRatePred > 0.5, 1, 0)]
+dtTest[, error := SurvivedPred != Survived]
+percError <- dtTest[, sum(error) / .N]
+percError

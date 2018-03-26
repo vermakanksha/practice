@@ -15,3 +15,22 @@ namesFlag <- c(namesNumbers, namesColors, nameMainColor, namesDrawings,
                namesAngles)
 names(dfFlag) <- c(namesAttributes, namesFlag)
 dfFlag
+
+library(data.table)
+dtFlag <- data.table(dfFlag)
+dtFlag[1:20, continent]
+vectorContinents <- c('N.America', 'S.America', 'Europe', 'Africa','Asia', 'Oceania')
+dtFlag[, continent := factor(continent, labels=vectorContinents)]
+vectorZones <- c('NE', 'SE', 'SW', 'NW')
+dtFlag[, zone := factor(zone, labels=vectorZones)]
+vectorLanguages <- c(
+  'English', 'Spanish', 'French', 'German', 'Slavic',
+  'Other Indo-European', 'Chinese', 'Arabic',
+  'Japanese/Turkish/Finnish/Magyar', 'Others')
+dtFlag[, language := factor(language, labels=vectorLanguages)]
+vectorReligions <- c(
+  'Catholic', 'Other Christian', 'Muslim', 'Buddhist',
+  'Hindu', 'Ethnic', 'Marxist', 'Others'
+)
+dtFlag[, religion := factor(religion, labels=vectorReligions)]
+str(dtFlag)
